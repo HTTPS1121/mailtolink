@@ -704,12 +704,12 @@
             });
         }
 
-        // Add event listeners to all inputs
+        // הוסף מאזינים לאירועים לכל הקלטים
         document.querySelectorAll('input, textarea').forEach(input => {
             input.addEventListener('input', checkFields);
         });
 
-        // Run on page load to handle URL params
+        // הפעל בעת טעינת עמוד כדי לטפל בפרמטרים של כתובת URL
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
             
@@ -719,7 +719,7 @@
             if (urlParams.has('subject')) document.getElementById('subject').value = urlParams.get('subject');
             if (urlParams.has('body')) document.getElementById('body').value = urlParams.get('body');
             
-            checkFields(); // Check fields after loading URL params
+            checkFields(); // סמן שדות לאחר טעינת פרמטרים של כתובת אתר
         }
 
         function generateMailto() {
@@ -915,7 +915,7 @@
             document.querySelector('h2').textContent = t.title;
             document.querySelector('.subtitle').textContent = t.subtitle;
             
-            // עדכו�� תוויות ופלייסהולדרים
+            // עדכון תוויות ופלייסהולדרים
             document.querySelectorAll('.form-group').forEach(group => {
                 const label = group.querySelector('label');
                 const input = group.querySelector('input, textarea');
