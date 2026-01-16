@@ -1,599 +1,41 @@
 <!DOCTYPE html>
-<html dir="rtl">
+<!--
+    Email Link Generator - יוצר קישורי מייל
+    A simple tool for creating mailto: and Gmail links with full Hebrew support
+    
+    Features:
+    - Generate mailto: links
+    - Generate Gmail-specific links
+    - Support for multiple recipients (CC/BCC)
+    - Dark/Light theme support
+    - Hebrew/English localization
+    - Fully responsive design
+    - No data collection or storage
+    
+    Author: Https1121
+    Repository: https://github.com/https1121/mailtolink
+-->
+<html dir="rtl" lang="he">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="כלי פשוט ליצירת קישורי מייל (mailto) וקישורי Gmail עם תמיכה מלאה בעברית">
     <title>יוצר לינקים למייל</title>
+    
+    <!-- Prevent theme flash - set theme before CSS loads -->
     <script>
-        // מניעת פלאש של ערכת נושא לא נכונה
         const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         document.documentElement.setAttribute('data-theme', theme);
     </script>
+    
+    <!-- Favicon (email icon) -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iIzVCNUZFRiIgZD0iTTIwIDRINEMyLjkgNCAyIDQuOSAyIDZ2MTJjMCAxLjEuOSAyIDIgMmgxNmMxLjEgMCAyLS45IDItMlY2YzAtMS4xLS45LTItMi0yek0yMCA4bC04IDVsLTgtNVY2bDggNWw4LTV2MnoiLz48L3N2Zz4=">
+    
+    <!-- Google Fonts - Heebo (Hebrew font) -->
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #5B5FEF;
-            --primary-hover: #4A4EE4;
-            
-            /* צבעים למצב כהה */
-            --text: #E2E8F0;
-            --text-secondary: #94A3B8;
-            --bg: #1E293B;
-            --bg-gradient: linear-gradient(135deg, #1E293B 0%, #334155 100%);
-            --container-bg: #293548;
-            --input-bg: #1E293B;
-            --border: #475569;
-            --button-bg: #334155;
-            --shadow: rgba(0, 0, 0, 0.25);
-            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.15);
-            --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.15);
-        }
-
-        :root[data-theme="light"] {
-            --text: #334155;
-            --text-secondary: #64748B;
-            --bg: #F8FAFC;
-            --bg-gradient: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
-            --container-bg: #FFFFFF;
-            --input-bg: #FFFFFF;
-            --border: #E2E8F0;
-            --button-bg: #FFFFFF;
-            --shadow: rgba(0, 0, 0, 0.1);
-            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.05);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Heebo', sans-serif;
-            background: var(--bg-gradient);
-            color: var(--text);
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-            line-height: 1.5;
-        }
-
-        .container {
-            position: relative;
-            width: 100%;
-            max-width: 640px;
-            background: var(--container-bg);
-            border-radius: 24px;
-            padding: 40px;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--border);
-            backdrop-filter: blur(24px);
-            max-height: 100vh;
-            overflow-y: auto;
-            overflow-x: hidden;
-            scrollbar-width: thin;
-            scrollbar-color: var(--border) transparent;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* עיצוב פס הגלילה עבור Chrome/Safari */
-        .container::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .container::-webkit-scrollbar-track {
-            background: transparent;
-            margin: 8px 0;
-        }
-
-        .container::-webkit-scrollbar-thumb {
-            background-color: var(--border);
-            border-radius: 20px;
-            border: 1px solid transparent;
-            background-clip: padding-box;
-            transition: background-color 0.2s ease;
-        }
-
-        .container::-webkit-scrollbar-thumb:hover {
-            background-color: var(--text-secondary);
-        }
-
-        /* מסתיר את פס הגל��לה כשלא בשימוש */
-        .container:not(:hover)::-webkit-scrollbar-thumb {
-            opacity: 0;
-        }
-
-        h2 {
-            color: var(--text);
-            font-size: 2rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            text-align: center;
-            letter-spacing: -0.03em;
-            background: linear-gradient(to right, var(--primary) 0%, var(--primary-hover) 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: var(--text-secondary);
-            margin-bottom: 3rem;
-            font-size: 1.125rem;
-            max-width: 480px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-            background: var(--container-bg);
-            padding: 0;
-            border-radius: 12px;
-            transition: all 0.2s ease;
-            position: relative;
-        }
-
-        .form-group:hover {
-            border-color: var(--primary);
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--text);
-            font-size: 0.875rem;
-            padding-right: 2px;
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 12px 16px;
-            font-size: 1rem;
-            background: var(--input-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            transition: all 0.2s ease;
-            color: var(--text);
-            font-family: inherit;
-            box-shadow: var(--shadow-sm);
-        }
-
-        input:hover, textarea:hover {
-            border-color: var(--primary);
-            background: var(--input-bg);
-        }
-
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            background: var(--input-bg);
-            box-shadow: 0 0 0 3px rgba(91, 95, 239, 0.15);
-        }
-
-        textarea {
-            height: 100px;
-            resize: none;
-        }
-
-        .buttons-container {
-            margin-top: 2rem;
-            position: relative;
-            min-height: 48px;
-        }
-
-        .placeholder-text {
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 1rem;
-            opacity: 1;
-            transition: all 0.3s ease;
-            background: var(--container-bg);
-            padding: 16px;
-            border-radius: 12px;
-            border: 1px dashed var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .placeholder-text::before {
-            content: '✨';
-        }
-
-        .placeholder-text::after {
-            content: '✨';
-        }
-
-        .buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        button {
-            padding: 14px 24px;
-            font-size: 0.9375rem;
-            font-weight: 500;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            font-family: inherit;
-            position: relative;
-            overflow: hidden;
-        }
-
-        button:first-child {
-            color: var(--primary);
-            background: var(--button-bg);
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow-sm);
-        }
-
-        button:first-child:hover {
-            border-color: var(--primary);
-            background: var(--button-bg);
-        }
-
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            pointer-events: all !important;
-        }
-
-        button:disabled:hover::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: calc(100% + 8px);
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--primary);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            white-space: nowrap;
-            pointer-events: none;
-            opacity: 1;
-            z-index: 1;
-        }
-
-        button:disabled:hover::before {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-left: 4px solid transparent;
-            border-right: 4px solid transparent;
-            border-top: 4px solid var(--primary);
-        }
-
-        button:last-child {
-            color: white;
-            background: var(--primary);
-            border: none;
-            font-weight: 600;
-            box-shadow: 0 4px 12px rgba(91, 95, 239, 0.3);
-        }
-
-        button:last-child:hover {
-            background: var(--primary-hover);
-            box-shadow: 0 8px 16px rgba(91, 95, 239, 0.4);
-            transform: translateY(-1px);
-        }
-
-        button:active {
-            transform: translateY(1px);
-        }
-
-        #copyStatus {
-            position: fixed;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--container-bg);
-            color: var(--text);
-            padding: 12px 24px;
-            border-radius: 99px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            opacity: 0;
-            transition: all 0.2s ease;
-            box-shadow: var(--shadow-md);
-            backdrop-filter: blur(24px);
-            border: 1px solid var(--border);
-        }
-
-        #copyStatus.show {
-            opacity: 1;
-            transform: translate(-50%, -12px);
-        }
-
-        @media (max-width: 640px) {
-            body {
-                padding: 16px;
-                height: 100dvh;
-                align-items: flex-start;
-            }
-            
-            .container {
-                padding: 24px 16px;
-                border-radius: 20px;
-                transform: none;
-                max-height: calc(100dvh - 32px);
-            }
-
-            /* טותרות */
-            h2 {
-                font-size: 1.5rem;
-                margin-top: 32px;
-            }
-            .subtitle {
-                font-size: 1rem;
-                margin-bottom: 2rem;
-            }
-
-            /* שדות */
-            .form-group {
-                margin-bottom: 1rem;
-            }
-            input, textarea {
-                padding: 12px;
-                font-size: 16px;  /* מניעת זום באייפון */
-            }
-            textarea {
-                height: 80px;
-            }
-
-            /* כפתורים */
-            .buttons {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-            button {
-                padding: 12px;
-                font-size: 0.875rem;
-                min-height: 44px;
-            }
-            .buttons-section {
-                margin-top: 1rem;
-                padding-top: 0.75rem;
-            }
-
-            /* פס גלילה */
-            .container::-webkit-scrollbar {
-                width: 3px;
-            }
-
-            /* הודעת העתקה */
-            #copyStatus {
-                bottom: 16px;
-                padding: 10px 20px;
-                font-size: 0.8125rem;
-            }
-        }
-
-        .form-group {
-            position: relative;
-        }
-
-        .validation-tooltip {
-            position: absolute;
-            bottom: calc(100% + 8px);
-            right: 0;
-            background: var(--primary);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.2s ease;
-            white-space: nowrap;
-            pointer-events: none;
-        }
-
-        .validation-tooltip::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            right: 10px;
-            border-left: 4px solid transparent;
-            border-right: 4px solid transparent;
-            border-top: 4px solid var(--primary);
-        }
-
-        .validation-tooltip::after {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(-4px);
-        }
-
-        .add-fields-button {
-            background: none;
-            border: none;
-            color: var(--primary);
-            font-size: 0.875rem;
-            padding: 8px 16px;
-            margin: -8px 0 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.2s ease;
-        }
-
-        .add-fields-button:hover {
-            background: rgba(91, 95, 239, 0.08);
-        }
-
-        .add-fields-button svg {
-            width: 16px;
-            height: 16px;
-            transition: transform 0.2s ease;
-        }
-
-        .add-fields-button.active svg {
-            transform: rotate(180deg);
-        }
-
-        .additional-fields {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .additional-fields.visible {
-            max-height: 200px;  /* מספיק גבוה בשל שני השדות */
-        }
-
-        .scrollable-content {
-            flex: 1;
-            overflow-y: auto;
-            margin: 0 -8px;
-            padding: 0 8px;
-        }
-
-        .buttons-section {
-            margin-top: 1.5rem;
-            padding-top: 1rem;
-            position: relative;
-            background: var(--container-bg);
-        }
-
-        .buttons-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -40px;
-            right: -40px;
-            height: 1px;
-            background: var(--border);
-        }
-
-        .add-fields-button {
-            margin: 1rem auto;  /* מירכוז */
-            width: fit-content;
-        }
-
-        @media (max-width: 640px) {
-            .buttons {
-                gap: 8px;  /* הקטנת הרווח */
-            }
-
-            button {
-                padding: 12px;  /* הקטנת הפדינג */
-                font-size: 0.875rem;
-                min-height: 44px;  /* גובה מינימלי לנגישות */
-            }
-
-            .add-fields-button {
-                padding: 8px 12px;
-                font-size: 0.8125rem;
-                margin: 0.5rem auto;
-            }
-
-            .buttons-section {
-                margin-top: 1rem;
-                padding-top: 0.75rem;
-            }
-
-            .buttons-section::before {
-                left: -16px;
-                right: -16px;
-            }
-
-            .scrollable-content {
-                margin: 0 -4px;
-                padding: 0 4px;
-            }
-        }
-
-        /* מעדכן את הסגנון הקיים */
-        input::placeholder,
-        textarea::placeholder {
-            direction: inherit; /* במקום ltr קבוע */
-            text-align: inherit; /* במקום right קבוע */
-        }
-
-        /* מוסיף סגנון ספציפי למצב אנגלית */
-        :root[dir="ltr"] input::placeholder,
-        :root[dir="ltr"] textarea::placeholder {
-            text-align: left;
-        }
-
-        /* מוסיף סגנון ספציפי למצב עברית */
-        :root[dir="rtl"] input::placeholder,
-        :root[dir="rtl"] textarea::placeholder {
-            text-align: right;
-        }
-
-        @media (max-width: 640px) {
-            input::placeholder,
-            textarea::placeholder {
-                font-size: 0.875rem;  /* הקטנת הגודל במובייל */
-            }
-        }
-
-        .footer {
-            position: fixed;
-            bottom: 16px;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            z-index: 10;
-            pointer-events: none;
-        }
-
-        .footer p {
-            background: var(--container-bg);
-            padding: 8px 16px;
-            border-radius: 99px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border);
-            backdrop-filter: blur(8px);
-            pointer-events: all;
-        }
-
-        .footer a {
-            color: var(--primary);
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-
-        .footer a:hover {
-            color: var(--primary-hover);
-        }
-
-        .footer .separator {
-            margin: 0 8px;
-            opacity: 0.5;
-        }
-
-        @media (max-width: 640px) {
-            .footer {
-                bottom: 8px;
-            }
-            
-            .footer p {
-                padding: 6px 12px;
-                font-size: 0.8125rem;
-            }
-        }
-    </style>
+    
+    <!-- Main stylesheet -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
@@ -602,24 +44,28 @@
         
         <div class="scrollable-content">
             <form id="emailForm" autocomplete="on">
+                <!-- שדה כתובת מייל ראשית (חובה) -->
                 <div class="form-group">
-                    <label>כתובת מייל</label>
+                    <label>כתובת מייל <span class="required-indicator">*</span></label>
                     <input type="email" 
                            id="to" 
                            name="email"
                            autocomplete="email" 
                            placeholder="example1@domain.com, example2@domain.com" 
                            multiple
-                           required>
+                           required
+                           aria-label="כתובת מייל ראשית">
+                    <small class="field-hint">ניתן להזין מספר כתובות מופרדות בפסיק או רווח (לדוגמה: john@example.com, jane@example.com)</small>
                 </div>
 
                 <button class="add-fields-button">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M19 9l-7 7-7-7"></path>
                     </svg>
-                    הוסף עותק
+                    עותק / עותק מוסתר
                 </button>
 
+                <!-- שדות נוספים - CC ו-BCC (אופציונלי) -->
                 <div class="additional-fields">
                     <div class="form-group">
                         <label>עותק (CC)</label>
@@ -628,7 +74,9 @@
                                name="cc"
                                autocomplete="cc-email" 
                                placeholder="example1@domain.com, example2@domain.com"
-                               multiple>
+                               multiple
+                               aria-label="כתובות מייל לעותק">
+                        <small class="field-hint">כתובות שיראו לכל הנמענים (כולם יראו מי קיבל עותק)</small>
                     </div>
 
                     <div class="form-group">
@@ -638,350 +86,134 @@
                                name="bcc"
                                autocomplete="bcc-email" 
                                placeholder="example1@domain.com, example2@domain.com"
-                               multiple>
+                               multiple
+                               aria-label="כתובות מייל לעותק מוסתר">
+                        <small class="field-hint">כתובות שלא יראו לאף אחד (סודי - גם הנמען הראשי לא יראה מי קיבל עותק מוסתר)</small>
                     </div>
                 </div>
 
+                <!-- שדה נושא המייל (אופציונלי) -->
                 <div class="form-group">
                     <label>נושא</label>
                     <input type="text" 
                            id="subject" 
                            name="subject"
-                           placeholder="הזן נושא להודעה">
+                           placeholder="הזן נושא להודעה"
+                           aria-label="נושא המייל">
                 </div>
 
+                <!-- שדה תוכן המייל (אופציונלי) -->
                 <div class="form-group">
                     <label>תוכן</label>
                     <textarea id="body" 
                               autocomplete="off" 
-                              placeholder="הזן את תוכן ההודעה"></textarea>
+                              placeholder="הזן את תוכן ההודעה"
+                              aria-label="תוכן המייל"></textarea>
                 </div>
             </form>
         </div>
 
+        <!-- כפתורי העתקה -->
         <div class="buttons-section">
             <div class="buttons">
-                <button onclick="copyMailto()" disabled data-tooltip="הזן כתובת מייל תקינה כדי להעתיק">העתק לינק ל-Mailto</button>
-                <button onclick="copyLink()" disabled data-tooltip="הזן כתובת מייל תקינה כדי להעתיק">העתק לינק ל-Gmail</button>
+                <button onclick="copyMailto()" 
+                        disabled 
+                        data-tooltip="הזן כתובת מייל תקינה כדי להעתיק"
+                        aria-label="העתק קישור mailto">
+                    📧 העתק לינק ל-Mailto
+                </button>
+                <button onclick="copyLink()" 
+                        disabled 
+                        data-tooltip="הזן כתובת מייל תקינה כדי להעתיק"
+                        aria-label="העתק קישור Gmail">
+                    ✉️ העתק לינק ל-Gmail
+                </button>
+            </div>
+        </div>
+        
+        <!-- כפתורי עזרה -->
+        <div class="help-buttons">
+            <button class="help-button" onclick="openHelpModal('how-it-works')" aria-label="מה הכלי הזה עושה">
+                💡 מה הכלי הזה עושה?
+            </button>
+            <button class="help-button" onclick="openHelpModal('links-difference')" aria-label="מה ההבדל בין הקישורים">
+                ❓ מה ההבדל בין 2 הסוגים של העתק לינק..?
+            </button>
+        </div>
+    </div>
+
+    <!-- Status notification for copy operations -->
+    <div id="copyStatus" role="status" aria-live="polite"></div>
+
+    <!-- Help Modals -->
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeHelpModal()"></div>
+    
+    <!-- How it works modal -->
+    <div class="modal" id="howItWorksModal">
+        <div class="modal-header">
+            <h3>💡 מה הכלי הזה עושה?</h3>
+            <button class="modal-close" onclick="closeHelpModal()" aria-label="סגור">×</button>
+        </div>
+        <div class="modal-content">
+            <div class="intro-text">
+                <p>צריכים דרך קלה ליצור קישורי דוא"ל מלאים מראש? מחולל קישורי ה-mailto החינמי שלנו עוזר לכם לבנות קישורי mailto מותאמים אישית הכוללים שורת נושא, גוף טקסט, שדות CC ו-BCC - והכל בכמה לחיצות בלבד.</p>
+                <p>בין אם אתם מוסיפים קישור דוא"ל לאתר האינטרנט שלכם, לחומרי שיווק או למסמכים, כלי זה מאפשר לכם ליצור בקלות קישורי דוא"ל מקצועיים וניתנים ללחיצה.</p>
+            </div>
+            <div class="how-to-use">
+                <strong>איך להשתמש:</strong>
+                <p>הזן את פרטי המייל (כתובת, נושא, תוכן), לחץ על אחד מהכפתורים להעתקת הקישור, והדבק אותו בכל מקום שתרצה:</p>
+                <ul>
+                    <li>באתר או בלוג</li>
+                    <li>במסמך Word או PDF</li>
+                    <li>בהודעת SMS או וואצאפ</li>
+                    <li>במייל אחר</li>
+                    <li>בכל מקום שתרצה</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Links difference modal -->
+    <div class="modal" id="linksDifferenceModal">
+        <div class="modal-header">
+            <h3>❓ מה ההבדל בין שני סוגי הקישורים?</h3>
+            <button class="modal-close" onclick="closeHelpModal()" aria-label="סגור">×</button>
+        </div>
+        <div class="modal-content">
+            <div class="explanation-item recommendation">
+                <strong>💡 מה עדיף?</strong>
+                <p><strong>אם אתה מתכנן לשלוח מייל עם הלינק מוטמע בתוך מילה</strong> - תשתמש ב-Mailto. זה הקישור הקצר והנוח ביותר לשימוש בתוך מיילים.</p>
+                <p>למשל, אם אתה רוצה לכתוב במייל "לחץ <a href="#">כאן</a> לשליחת מייל" - Mailto הוא הבחירה הטובה ביותר כי הוא קצר ונקי.</p>
+                <p><strong>אבל אם אתה צריך לשלוח את הלינק ב-SMS, וואצאפ, אתר או PDF</strong> - תשתמש ב-Gmail. הקישור יהיה ארוך יותר, אבל הוא יעבוד בכל מקום.</p>
+            </div>
+            <div class="explanation-item">
+                <strong>📧 Mailto:</strong> הקישור הקצר והנוח ביותר
+                <ul>
+                    <li>חובה להטמיע את הקישור בתוך מילה או טקסט (לא יעבוד כקישור עומד בפני עצמו)</li>
+                    <li>עובד רק בתוך מיילים - לא יעבוד ב-SMS, וואצאפ, אתרים או קבצי PDF</li>
+                </ul>
+            </div>
+            <div class="explanation-item">
+                <strong>✉️ Gmail:</strong> הקישור הארוך יותר, אבל גמיש יותר
+                <ul>
+                    <li>עובד בכל מקום - SMS, וואצאפ, אתרים, קבצי PDF וכל מקום אחר</li>
+                    <li>אפשר להטמיע בתוך מילה (מומלץ) או להשאיר כקישור ארוך - בשני המקרים זה יעבוד</li>
+                </ul>
             </div>
         </div>
     </div>
 
-    <div id="copyStatus"></div>
-
+    <!-- Footer with credits and source code link -->
     <footer class="footer">
         <p>
-            נבנה ע״י <a href="https://github.com/https1121" target="_blank" rel="noopener">Https1121</a>
+            נבנה ע״י <a href="https://github.com/https1121" target="_blank" rel="noopener" tabindex="-1">Https1121</a>
             <span class="separator">•</span>
-            <a href="https://github.com/https1121/mailtolink" target="_blank" rel="noopener">קוד מקור</a>
+            <a href="https://github.com/https1121/mailtolink" target="_blank" rel="noopener" tabindex="-1">קוד מקור</a>
         </p>
     </footer>
 
-    <script>
-        // להסיר את הכפילות הזו - מופיע פעמיים
-        document.getElementById('to').addEventListener('invalid', function(e) {
-            e.preventDefault();
-            const t = translations[currentLanguage];
-            if (!this.value) {
-                this.setCustomValidity(t.required);
-            } else {
-                this.setCustomValidity(t.invalidEmail);
-            }
-        });
-
-        function checkFields() {
-            const emailInput = document.getElementById('to');
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+(,\s*[^\s@]+@[^\s@]+\.[^\s@]+)*$/;
-            
-            // מפצל לפי פסיק או רווח ומסיר רווחים מיותרים
-            const emails = emailInput.value.split(/[,\s]+/).filter(email => email.length > 0);
-            
-            // בודק שכל הכתובות תקינות
-            const isValidEmail = emails.every(email => emailRegex.test(email));
-            
-            document.querySelectorAll('.buttons button').forEach(button => {
-                button.disabled = !isValidEmail || emails.length === 0;
-            });
-        }
-
-        // הוסף מאזינים לאירועים לכל הקלטים
-        document.querySelectorAll('input, textarea').forEach(input => {
-            input.addEventListener('input', checkFields);
-        });
-
-        // הפעל בעת טעינת עמוד כדי לטפל בפרמטרים של כתובת URL
-        window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            
-            if (urlParams.has('to')) document.getElementById('to').value = urlParams.get('to');
-            if (urlParams.has('cc')) document.getElementById('cc').value = urlParams.get('cc');
-            if (urlParams.has('bcc')) document.getElementById('bcc').value = urlParams.get('bcc');
-            if (urlParams.has('subject')) document.getElementById('subject').value = urlParams.get('subject');
-            if (urlParams.has('body')) document.getElementById('body').value = urlParams.get('body');
-            
-            checkFields(); // סמן שדות לאחר טעינת פרמטרים של כתובת אתר
-        }
-
-        function generateMailto() {
-            let to = document.getElementById('to').value;
-            let cc = document.getElementById('cc').value;
-            let bcc = document.getElementById('bcc').value;
-            let subject = document.getElementById('subject').value;
-            let body = document.getElementById('body').value;
-
-            let mailto = `mailto:${to}`;
-            let params = [];
-
-            if (cc) params.push(`cc=${encodeURIComponent(cc).replace(/%40/g, '@')}`);
-            if (bcc) params.push(`bcc=${encodeURIComponent(bcc).replace(/%40/g, '@')}`);
-            if (subject) params.push(`subject=${encodeURIComponent(subject)}`);
-            if (body) params.push(`body=${encodeURIComponent(body)}`);
-
-            if (params.length > 0) {
-                mailto += '?' + params.join('&');
-            }
-
-            return mailto;
-        }
-
-        async function copyMailto() {
-            try {
-                await navigator.clipboard.writeText(generateMailto());
-                showCopyStatus('mailto');
-            } catch (err) {
-                const textArea = document.createElement('textarea');
-                textArea.value = generateMailto();
-                document.body.appendChild(textArea);
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    showCopyStatus('mailto');
-                } catch (err) {
-                    showCopyStatus('error');
-                }
-                document.body.removeChild(textArea);
-            }
-        }
-
-        async function copyLink() {
-            let to = document.getElementById('to').value;
-            let cc = document.getElementById('cc').value;
-            let bcc = document.getElementById('bcc').value;
-            let subject = document.getElementById('subject').value;
-            let body = document.getElementById('body').value;
-
-            let gmailUrl = 'https://mail.google.com/mail/u/0/?';
-            let params = ['view=cm', 'fs=1'];
-            
-            if (to) params.push(`to=${encodeURIComponent(to)}`);
-            if (cc) params.push(`cc=${encodeURIComponent(cc)}`);
-            if (bcc) params.push(`bcc=${encodeURIComponent(bcc)}`);
-            if (subject) params.push(`su=${encodeURIComponent(subject)}`);
-            if (body) params.push(`body=${encodeURIComponent(body)}`);
-
-            let finalUrl = gmailUrl + params.join('&');
-            
-            try {
-                await navigator.clipboard.writeText(finalUrl);
-                showCopyStatus('gmail');
-            } catch (err) {
-                const textArea = document.createElement('textarea');
-                textArea.value = finalUrl;
-                document.body.appendChild(textArea);
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    showCopyStatus('gmail');
-                } catch (err) {
-                    showCopyStatus('error');
-                }
-                document.body.removeChild(textArea);
-            }
-        }
-
-        function showCopyStatus(type) {
-            const t = translations[currentLanguage];
-            let message;
-            
-            switch(type) {
-                case 'mailto':
-                    message = t.copied;
-                    break;
-                case 'gmail':
-                    message = t.copiedGmail;
-                    break;
-                case 'error':
-                    message = t.copyError;
-                    break;
-            }
-            
-            let status = document.getElementById('copyStatus');
-            status.textContent = message;
-            status.classList.add('show');
-            setTimeout(() => {
-                status.classList.remove('show');
-            }, 2000);
-        }
-
-        const translations = {
-            he: {
-                title: 'יוצר לינקים למייל',
-                subtitle: 'צור בקלות קישורים למייל עם כל הפרטים הדרושים',
-                to: 'כתובת מייל',
-                cc: 'עותק (CC)',
-                bcc: 'עותק מוסתר (BCC)',
-                subject: 'נושא',
-                body: 'תוכן',
-                copyMailto: 'העתק לינק ל-Mailto',
-                copyGmail: 'העתק לינק ל-Gmail',
-                copied: 'הועתק לינק למייל!',
-                copiedGmail: 'הועתק לינק ל-Gmail!',
-                copyError: 'לא ניתן להעתיק, נסה להעתיק ידנית',
-                placeholders: {
-                    to: 'example1@domain.com, example2@domain.com',
-                    cc: 'example1@domain.com, example2@domain.com',
-                    bcc: 'example1@domain.com, example2@domain.com',
-                    subject: 'הזן נושא להודעה',
-                    body: 'הזן את תוכן ההודעה'
-                },
-                placeholder: 'הזן כתובת מייל כדי להתחיל ליצור קישורים',
-                required: 'שדה חובה',
-                invalidEmail: 'כתובת מייל אינה תקינה',
-                buttonTooltip: 'הזן כתובת מייל תקינה כדי להעתיק',
-                addFields: 'הוסף עותקים',
-                hideFields: 'הסתר עותקים',
-                disabledButtonTooltip: 'הזן כתובת מייל תקינה כדי להמשיך'
-            },
-            en: {
-                title: 'Email Link Generator',
-                subtitle: 'Easily create email links with all the details you need',
-                to: 'Email Address',
-                cc: 'CC',
-                bcc: 'BCC',
-                subject: 'Subject',
-                body: 'Message',
-                copyMailto: 'Copy Mailto Link',
-                copyGmail: 'Copy Gmail Link',
-                copied: 'Email link copied!',
-                copiedGmail: 'Gmail link copied!',
-                copyError: 'Could not copy, try copying manually',
-                placeholders: {
-                    to: 'example1@domain.com, example2@domain.com',
-                    cc: 'example1@domain.com, example2@domain.com',
-                    bcc: 'example1@domain.com, example2@domain.com',
-                    subject: 'Enter message subject',
-                    body: 'Enter message content'
-                },
-                placeholder: 'Enter an email address to start creating links',
-                required: 'Required field',
-                invalidEmail: 'Invalid email address',
-                buttonTooltip: 'Enter a valid email to copy',
-                addFields: 'Add CC/BCC',
-                hideFields: 'Hide CC/BCC',
-                disabledButtonTooltip: 'Enter a valid email to continue'
-            }
-        };
-
-        // ביד אחרי הגדרת ה-translations
-        function detectLanguage() {
-            return navigator.language.toLowerCase().split('-')[0] === 'he' ? 'he' : 'en';
-        }
-
-        let currentLanguage = detectLanguage();
-
-        // מעדכן את קוד האתחול ב-DOMContentLoaded
-        document.addEventListener('DOMContentLoaded', () => {
-            // קדכון הממשק
-            updateUILanguage();
-            
-            // בדיקת ערכת נושא
-            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            document.documentElement.setAttribute('data-theme', systemPrefersDark ? 'dark' : 'light');
-        });
-
-        window.addEventListener('languagechange', () => {
-            currentLanguage = detectLanguage();
-            updateUILanguage();
-        });
-
-        function updateUILanguage() {
-            const t = translations[currentLanguage];
-            
-            // עדכון כיוון הדף בהתאם לשפה
-            document.documentElement.dir = currentLanguage === 'he' ? 'rtl' : 'ltr';
-            
-            // עדכון כותרת וכותרת משנה
-            document.title = t.title;
-            document.querySelector('h2').textContent = t.title;
-            document.querySelector('.subtitle').textContent = t.subtitle;
-            
-            // עדכון תוויות ופלייסהולדרים
-            document.querySelectorAll('.form-group').forEach(group => {
-                const label = group.querySelector('label');
-                const input = group.querySelector('input, textarea');
-                const inputId = input.id;
-                
-                if (t[inputId]) {
-                    label.textContent = t[inputId];
-                }
-                if (t.placeholders[inputId]) {
-                    input.placeholder = t.placeholders[inputId];
-                }
-            });
-
-            // עדכון טקסטים בפוטר
-            if (currentLanguage === 'he') {
-                document.querySelector('.footer p').innerHTML = 'נבנה ע״י <a href="https://github.com/https1121" target="_blank" rel="noopener">Https1121</a><span class="separator">•</span><a href="https://github.com/https1121/mailtolink" target="_blank" rel="noopener">קוד מקור</a>';
-            } else {
-                document.querySelector('.footer p').innerHTML = 'Built by <a href="https://github.com/https1121" target="_blank" rel="noopener">Https1121</a><span class="separator">•</span><a href="https://github.com/https1121/mailtolink" target="_blank" rel="noopener">Source Code</a>';
-            }
-            
-            // עדכון כפתורים
-            document.querySelectorAll('button').forEach(button => {
-                if (button.getAttribute('onclick') === 'copyMailto()') {
-                    button.textContent = t.copyMailto;
-                } else if (button.getAttribute('onclick') === 'copyLink()') {
-                    button.textContent = t.copyGmail;
-                } else if (button.classList.contains('add-fields-button')) {
-                    const isVisible = document.querySelector('.additional-fields').classList.contains('visible');
-                    button.innerHTML = `
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                        ${isVisible ? t.hideFields : t.addFields}
-                    `;
-                }
-            });
-        }
-
-        document.querySelector('.add-fields-button').addEventListener('click', function() {
-            const t = translations[currentLanguage];
-            const additionalFields = document.querySelector('.additional-fields');
-            const isVisible = additionalFields.classList.contains('visible');
-            
-            // עדכון הטקסט לפי המצב הנוכחי
-            this.innerHTML = `
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M19 9l-7 7-7-7"></path>
-                </svg>
-                ${!isVisible ? t.hideFields : t.addFields}
-            `;
-            
-            // שינוי המצב
-            this.classList.toggle('active');
-            additionalFields.classList.toggle('visible');
-        });
-
-        document.getElementById('emailForm').addEventListener('submit', (e) => {
-            e.preventDefault(); // מניעת שליחת הפוסט
-        });
-
-        // להסיר
-        document.addEventListener('invalid', (function(){
-            return function(e) {
-                e.preventDefault();
-            };
-        })(), true);
-    </script>
+    <!-- Main JavaScript file -->
+    <script src="script.js"></script>
 </body>
-</html> 
+</html>

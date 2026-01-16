@@ -1,0 +1,1020 @@
+/* ============================================
+   CSS Variables & Theme
+   ============================================ */
+:root {
+    --primary: #5B5FEF;
+    --primary-hover: #4A4EE4;
+    
+    /* Dark theme colors */
+    --text: #E2E8F0;
+    --text-secondary: #94A3B8;
+    --bg: #1E293B;
+    --bg-gradient: linear-gradient(135deg, #1E293B 0%, #334155 100%);
+    --container-bg: #293548;
+    --input-bg: #1E293B;
+    --border: #475569;
+    --button-bg: #334155;
+    --shadow: rgba(0, 0, 0, 0.25);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.15);
+    --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+:root[data-theme="light"] {
+    --text: #334155;
+    --text-secondary: #64748B;
+    --bg: #F8FAFC;
+    --bg-gradient: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
+    --container-bg: #FFFFFF;
+    --input-bg: #FFFFFF;
+    --border: #E2E8F0;
+    --button-bg: #FFFFFF;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+/* ============================================
+   Reset & Base Styles
+   ============================================ */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Heebo', sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    line-height: 1.5;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* ============================================
+   Container
+   ============================================ */
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    background: var(--container-bg);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(24px);
+    max-height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+    display: flex;
+    flex-direction: column;
+    animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Scrollbar styling */
+.container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.container::-webkit-scrollbar-track {
+    background: transparent;
+    margin: 8px 0;
+}
+
+.container::-webkit-scrollbar-thumb {
+    background-color: var(--border);
+    border-radius: 20px;
+    border: 1px solid transparent;
+    background-clip: padding-box;
+    transition: background-color 0.2s ease;
+}
+
+.container::-webkit-scrollbar-thumb:hover {
+    background-color: var(--text-secondary);
+}
+
+.container:not(:hover)::-webkit-scrollbar-thumb {
+    opacity: 0;
+}
+
+/* ============================================
+   Typography
+   ============================================ */
+h2 {
+    color: var(--text);
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    letter-spacing: -0.03em;
+    background: linear-gradient(to right, var(--primary) 0%, var(--primary-hover) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fadeInDown 0.6s ease-out 0.1s both;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    font-size: 1.125rem;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeInDown 0.6s ease-out 0.2s both;
+}
+
+/* Help buttons - כפתורי עזרה */
+.help-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.help-button {
+    background: rgba(91, 95, 239, 0.1);
+    border: 1px solid rgba(91, 95, 239, 0.2);
+    color: var(--primary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.help-button:hover {
+    background: rgba(91, 95, 239, 0.15);
+    border-color: rgba(91, 95, 239, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(91, 95, 239, 0.2);
+}
+
+/* Required indicator - כוכבית לשדה חובה */
+.required-indicator {
+    color: var(--primary);
+    font-weight: 600;
+    margin-right: 4px;
+}
+
+/* Field hint - הסבר קטן מתחת לשדות */
+.field-hint {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 6px;
+    padding-right: 4px;
+    font-style: italic;
+}
+
+
+/* ============================================
+   Form Elements
+   ============================================ */
+.form-group {
+    margin-bottom: 1.5rem;
+    background: var(--container-bg);
+    padding: 0;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    position: relative;
+    animation: fadeInUp 0.5s ease-out both;
+}
+
+.form-group:nth-child(1) { animation-delay: 0.1s; }
+.form-group:nth-child(2) { animation-delay: 0.15s; }
+.form-group:nth-child(3) { animation-delay: 0.2s; }
+.form-group:nth-child(4) { animation-delay: 0.25s; }
+.form-group:nth-child(5) { animation-delay: 0.3s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-group:hover {
+    border-color: var(--primary);
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text);
+    font-size: 0.875rem;
+    padding-right: 2px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 1rem;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    color: var(--text);
+    font-family: inherit;
+    box-shadow: var(--shadow-sm);
+}
+
+input:hover, textarea:hover {
+    border-color: var(--primary);
+    background: var(--input-bg);
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: var(--input-bg);
+    box-shadow: 0 0 0 3px rgba(91, 95, 239, 0.15);
+}
+
+textarea {
+    height: 100px;
+    resize: none;
+}
+
+/* Placeholder styling */
+input::placeholder,
+textarea::placeholder {
+    direction: inherit;
+    text-align: inherit;
+}
+
+:root[dir="ltr"] input::placeholder,
+:root[dir="ltr"] textarea::placeholder {
+    text-align: left;
+}
+
+:root[dir="rtl"] input::placeholder,
+:root[dir="rtl"] textarea::placeholder {
+    text-align: right;
+}
+
+/* ============================================
+   Buttons
+   ============================================ */
+.buttons-container {
+    margin-top: 2rem;
+    position: relative;
+    min-height: 48px;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+button {
+    padding: 14px 24px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: inherit;
+    position: relative;
+    overflow: hidden;
+}
+
+button:first-child {
+    color: var(--primary);
+    background: var(--button-bg);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+}
+
+button:first-child:hover {
+    border-color: var(--primary);
+    background: var(--button-bg);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+button:last-child {
+    color: white;
+    background: var(--primary);
+    border: none;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(91, 95, 239, 0.3);
+}
+
+button:last-child:hover {
+    background: var(--primary-hover);
+    box-shadow: 0 8px 16px rgba(91, 95, 239, 0.4);
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0) scale(0.98);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: all !important;
+}
+
+button:disabled:hover {
+    transform: none;
+}
+
+button:disabled:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 1;
+    z-index: 1;
+    animation: tooltipFadeIn 0.2s ease-out;
+}
+
+@keyframes tooltipFadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+button:disabled:hover::before {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid var(--primary);
+}
+
+/* Add fields button */
+.add-fields-button {
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-size: 0.875rem;
+    padding: 8px 16px;
+    margin: -8px 0 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+    margin: 1rem auto;
+    width: fit-content;
+}
+
+.add-fields-button:hover {
+    background: rgba(91, 95, 239, 0.08);
+    transform: translateY(-1px);
+}
+
+.add-fields-button svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.add-fields-button.active svg {
+    transform: rotate(180deg);
+}
+
+/* ============================================
+   Additional Fields
+   ============================================ */
+.additional-fields {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.additional-fields.visible {
+    max-height: 300px;
+}
+
+/* ============================================
+   Copy Status
+   ============================================ */
+#copyStatus {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--container-bg);
+    color: var(--text);
+    padding: 12px 24px;
+    border-radius: 99px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-md);
+    backdrop-filter: blur(24px);
+    border: 1px solid var(--border);
+    pointer-events: none;
+}
+
+#copyStatus.show {
+    opacity: 1;
+    transform: translate(-50%, -12px);
+    animation: bounceIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -12px) scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -12px) scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -12px) scale(1);
+    }
+}
+
+/* ============================================
+   Scrollable Content
+   ============================================ */
+.scrollable-content {
+    flex: 1;
+    overflow-y: auto;
+    margin: 0 -8px;
+    padding: 0 8px;
+}
+
+.buttons-section {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    position: relative;
+    background: var(--container-bg);
+}
+
+.buttons-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -40px;
+    right: -40px;
+    height: 1px;
+    background: var(--border);
+    animation: expandLine 0.6s ease-out 0.4s both;
+}
+
+@keyframes expandLine {
+    from {
+        transform: scaleX(0);
+    }
+    to {
+        transform: scaleX(1);
+    }
+}
+
+/* ============================================
+   Modal / Popup
+   ============================================ */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background: var(--container-bg);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border);
+    max-width: 560px;
+    width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(24px);
+}
+
+.modal.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+    animation: modalSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.9) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1) translateY(0);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: var(--container-bg);
+    border-radius: 20px 20px 0 0;
+    z-index: 1;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.modal-close {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    padding: 0;
+}
+
+.modal-close:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: var(--text);
+    transform: rotate(90deg);
+}
+
+.modal-content {
+    padding: 24px;
+    color: var(--text);
+    line-height: 1.6;
+}
+
+.modal-content p {
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+}
+
+.modal-content ul {
+    margin: 1rem 0;
+    padding-right: 24px;
+    list-style-type: disc;
+}
+
+.modal-content li {
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+}
+
+.modal-content li:last-child {
+    margin-bottom: 0;
+}
+
+/* Intro text in modal */
+.modal-content .intro-text {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.modal-content .intro-text p {
+    margin-bottom: 1rem;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+}
+
+.modal-content .intro-text p:last-child {
+    margin-bottom: 0;
+}
+
+/* How to use section */
+.modal-content .how-to-use {
+    margin-top: 1.5rem;
+}
+
+.modal-content .how-to-use strong {
+    display: block;
+    color: var(--primary);
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+/* Explanation items inside modal */
+.modal-content .explanation-item {
+    margin-bottom: 1.25rem;
+}
+
+.modal-content .explanation-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Modal scrollbar */
+.modal::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal::-webkit-scrollbar-thumb {
+    background-color: var(--border);
+    border-radius: 20px;
+}
+
+.modal::-webkit-scrollbar-thumb:hover {
+    background-color: var(--text-secondary);
+}
+
+.explanation-item {
+    margin-bottom: 1rem;
+}
+
+.explanation-item:last-child {
+    margin-bottom: 0;
+}
+
+.explanation-item strong {
+    color: var(--primary);
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.875rem;
+}
+
+/* Recommendation item - בולט יותר */
+.explanation-item.recommendation {
+    background: rgba(91, 95, 239, 0.1);
+    border: 1px solid rgba(91, 95, 239, 0.3);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 1.25rem;
+}
+
+.explanation-item.recommendation strong {
+    color: var(--primary);
+    font-size: 0.9375rem;
+    margin-bottom: 8px;
+}
+
+.explanation-item.recommendation p {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: var(--text);
+}
+
+.explanation-item ul {
+    margin: 8px 0 0 0;
+    padding-right: 20px;
+    list-style-type: disc;
+}
+
+.explanation-item li {
+    margin-bottom: 4px;
+    font-size: 0.8125rem;
+}
+
+.explanation-item li:last-child {
+    margin-bottom: 0;
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+.footer {
+    position: fixed;
+    bottom: 16px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    z-index: 10;
+    pointer-events: none;
+    animation: fadeInUp 0.6s ease-out 0.5s both;
+}
+
+.footer p {
+    background: var(--container-bg);
+    padding: 8px 16px;
+    border-radius: 99px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+    pointer-events: all;
+}
+
+.footer a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer a:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+.footer .separator {
+    margin: 0 8px;
+    opacity: 0.5;
+}
+
+/* ============================================
+   Validation Tooltip
+   ============================================ */
+.validation-tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    right: 0;
+    background: var(--primary);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.validation-tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    right: 10px;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid var(--primary);
+}
+
+.validation-tooltip.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-4px);
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+@media (max-width: 640px) {
+    body {
+        padding: 16px;
+        height: 100dvh;
+        align-items: flex-start;
+    }
+    
+    .container {
+        padding: 24px 16px;
+        border-radius: 20px;
+        transform: none;
+        max-height: calc(100dvh - 32px);
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        margin-top: 32px;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .help-buttons {
+        gap: 8px;
+        margin-top: 1.5rem;
+    }
+    
+    .help-button {
+        font-size: 0.8125rem;
+        padding: 8px 12px;
+    }
+    
+    .modal {
+        width: 95%;
+        max-height: 90vh;
+        border-radius: 16px;
+    }
+    
+    .modal-header {
+        padding: 20px;
+    }
+    
+    .modal-header h3 {
+        font-size: 1.125rem;
+    }
+    
+    .modal-content {
+        padding: 20px;
+    }
+    
+    .modal-content .intro-text {
+        margin-bottom: 1.25rem;
+        padding-bottom: 1.25rem;
+    }
+    
+    .modal-content .intro-text p {
+        font-size: 0.875rem;
+    }
+    
+    .modal-content .how-to-use strong {
+        font-size: 0.9375rem;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+    
+    .field-hint {
+        font-size: 0.7rem;
+        margin-top: 4px;
+    }
+    
+    input, textarea {
+        padding: 12px;
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+    
+    textarea {
+        height: 80px;
+    }
+
+    .buttons {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    button {
+        padding: 12px;
+        font-size: 0.875rem;
+        min-height: 44px;
+    }
+    
+    .buttons-section {
+        margin-top: 1rem;
+        padding-top: 0.75rem;
+    }
+
+    .buttons-section::before {
+        left: -16px;
+        right: -16px;
+    }
+    
+    .explanation-item strong {
+        font-size: 0.8125rem;
+    }
+    
+    .explanation-item.recommendation {
+        padding: 10px;
+        margin-bottom: 1rem;
+    }
+    
+    .explanation-item.recommendation strong {
+        font-size: 0.875rem;
+    }
+    
+    .explanation-item.recommendation p {
+        font-size: 0.75rem;
+    }
+    
+    .explanation-item li {
+        font-size: 0.75rem;
+    }
+
+    .container::-webkit-scrollbar {
+        width: 3px;
+    }
+
+    #copyStatus {
+        bottom: 16px;
+        padding: 10px 20px;
+        font-size: 0.8125rem;
+    }
+
+    .add-fields-button {
+        padding: 8px 12px;
+        font-size: 0.8125rem;
+        margin: 0.5rem auto;
+    }
+
+    .scrollable-content {
+        margin: 0 -4px;
+        padding: 0 4px;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+        font-size: 0.875rem;
+    }
+
+    .footer {
+        bottom: 8px;
+    }
+    
+    .footer p {
+        padding: 6px 12px;
+        font-size: 0.8125rem;
+    }
+}
