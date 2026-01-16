@@ -31,7 +31,8 @@
     <!-- Favicon (email icon) -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iIzVCNUZFRiIgZD0iTTIwIDRINEMyLjkgNCAyIDQuOSAyIDZ2MTJjMCAxLjEuOSAyIDIgMmgxNmMxLjEgMCAyLS45IDItMlY2YzAtMS4xLS45LTItMi0yek0yMCA4bC04IDVsLTgtNVY2bDggNWw4LTV2MnoiLz48L3N2Zz4=">
     
-    <!-- Google Fonts - Heebo (Hebrew font) -->
+    <!-- Google Fonts - Roboto (Material Design) & Heebo (Hebrew font) -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&display=swap" rel="stylesheet">
     
     <!-- Main stylesheet -->
@@ -40,7 +41,12 @@
 <body>
     <div class="container">
         <h2>יוצר לינקים למייל</h2>
-        <p class="subtitle">צור בקלות קישורים למייל עם כל הפרטים הדרושים</p>
+        <div class="subtitle-wrapper">
+            <p class="subtitle">צריכים דרך קלה ליצור קישורי דוא"ל מלאים מראש? מחולל קישורי ה-mailto החינמי שלנו עוזר לכם לבנות קישורי mailto מותאמים אישית הכוללים שורת נושא, גוף טקסט, שדות CC ו-BCC - והכל בכמה לחיצות בלבד.</p>
+            <button class="help-button" onclick="openHelpModal('how-it-works')" aria-label="מה הכלי הזה עושה">
+                💡 מה הכלי הזה עושה?
+            </button>
+        </div>
         
         <div class="scrollable-content">
             <form id="emailForm" autocomplete="on">
@@ -133,9 +139,6 @@
         
         <!-- כפתורי עזרה -->
         <div class="help-buttons">
-            <button class="help-button" onclick="openHelpModal('how-it-works')" aria-label="מה הכלי הזה עושה">
-                💡 מה הכלי הזה עושה?
-            </button>
             <button class="help-button" onclick="openHelpModal('links-difference')" aria-label="מה ההבדל בין הקישורים">
                 ❓ מה ההבדל בין 2 הסוגים של העתק לינק..?
             </button>
