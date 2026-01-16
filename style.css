@@ -1,36 +1,80 @@
 /* ============================================
-   CSS Variables & Theme
+   Material Design 3 - CSS Variables & Theme
    ============================================ */
 :root {
-    --primary: #5B5FEF;
-    --primary-hover: #4A4EE4;
+    /* Material Design 3 Primary Color (Indigo) */
+    --md-primary: #6750A4;
+    --md-primary-container: #EADDFF;
+    --md-on-primary: #FFFFFF;
+    --md-on-primary-container: #21005D;
     
-    /* Dark theme colors */
-    --text: #E2E8F0;
-    --text-secondary: #94A3B8;
-    --bg: #1E293B;
-    --bg-gradient: linear-gradient(135deg, #1E293B 0%, #334155 100%);
-    --container-bg: #293548;
-    --input-bg: #1E293B;
-    --border: #475569;
-    --button-bg: #334155;
-    --shadow: rgba(0, 0, 0, 0.25);
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.15);
-    --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.15);
+    /* Material Design 3 Surface Colors - Dark */
+    --md-surface: #1C1B1F;
+    --md-surface-container: #211F26;
+    --md-surface-container-high: #2B2930;
+    --md-surface-container-highest: #36343B;
+    --md-on-surface: #E6E1E5;
+    --md-on-surface-variant: #CAC4D0;
+    
+    /* Material Design 3 Outline */
+    --md-outline: #938F99;
+    --md-outline-variant: #49454F;
+    
+    /* Material Design 3 Elevation Shadows */
+    --md-elevation-0: none;
+    --md-elevation-1: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+    --md-elevation-2: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
+    --md-elevation-3: 0px 1px 3px 0px rgba(0, 0, 0, 0.3), 0px 4px 8px 3px rgba(0, 0, 0, 0.15);
+    --md-elevation-4: 0px 2px 3px 0px rgba(0, 0, 0, 0.3), 0px 6px 10px 4px rgba(0, 0, 0, 0.15);
+    --md-elevation-5: 0px 4px 4px 0px rgba(0, 0, 0, 0.3), 0px 8px 12px 6px rgba(0, 0, 0, 0.15);
+    
+    /* Legacy variables for compatibility */
+    --primary: var(--md-primary);
+    --primary-hover: #7C6BA8;
+    --text: var(--md-on-surface);
+    --text-secondary: var(--md-on-surface-variant);
+    --bg: var(--md-surface);
+    --container-bg: var(--md-surface-container);
+    --input-bg: var(--md-surface-container-high);
+    --border: var(--md-outline-variant);
+    --button-bg: var(--md-surface-container-high);
 }
 
 :root[data-theme="light"] {
-    --text: #334155;
-    --text-secondary: #64748B;
-    --bg: #F8FAFC;
-    --bg-gradient: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
-    --container-bg: #FFFFFF;
-    --input-bg: #FFFFFF;
-    --border: #E2E8F0;
-    --button-bg: #FFFFFF;
-    --shadow: rgba(0, 0, 0, 0.1);
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.05);
+    /* Material Design 3 Primary Color (Indigo) - Light */
+    --md-primary: #6750A4;
+    --md-primary-container: #EADDFF;
+    --md-on-primary: #FFFFFF;
+    --md-on-primary-container: #21005D;
+    
+    /* Material Design 3 Surface Colors - Light */
+    --md-surface: #FFFBFE;
+    --md-surface-container: #F7F2FA;
+    --md-surface-container-high: #F1ECF5;
+    --md-surface-container-highest: #EBE6EF;
+    --md-on-surface: #1C1B1F;
+    --md-on-surface-variant: #49454F;
+    
+    /* Material Design 3 Outline - Light */
+    --md-outline: #79747E;
+    --md-outline-variant: #CAC4D0;
+    
+    /* Material Design 3 Elevation Shadows - Light */
+    --md-elevation-1: 0px 1px 3px 0px rgba(0, 0, 0, 0.12), 0px 1px 2px 0px rgba(0, 0, 0, 0.24);
+    --md-elevation-2: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+    --md-elevation-3: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px 0px rgba(0, 0, 0, 0.3);
+    --md-elevation-4: 0px 6px 10px 4px rgba(0, 0, 0, 0.15), 0px 2px 3px 0px rgba(0, 0, 0, 0.3);
+    --md-elevation-5: 0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 4px 0px rgba(0, 0, 0, 0.3);
+    
+    /* Legacy variables */
+    --primary-hover: #5A4A8F;
+    --text: var(--md-on-surface);
+    --text-secondary: var(--md-on-surface-variant);
+    --bg: var(--md-surface);
+    --container-bg: var(--md-surface-container);
+    --input-bg: var(--md-surface);
+    --border: var(--md-outline-variant);
+    --button-bg: var(--md-surface-container-high);
 }
 
 /* ============================================
@@ -43,9 +87,9 @@
 }
 
 body {
-    font-family: 'Heebo', sans-serif;
-    background: var(--bg-gradient);
-    color: var(--text);
+    font-family: 'Heebo', 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--md-surface);
+    color: var(--md-on-surface);
     height: 100vh;
     overflow: hidden;
     display: flex;
@@ -53,7 +97,7 @@ body {
     justify-content: center;
     padding: 40px;
     line-height: 1.5;
-    animation: fadeIn 0.4s ease-in-out;
+    animation: fadeIn 0.3s cubic-bezier(0.2, 0, 0, 1);
 }
 
 @keyframes fadeIn {
@@ -66,32 +110,31 @@ body {
 }
 
 /* ============================================
-   Container
+   Container - Material Card
    ============================================ */
 .container {
     position: relative;
     width: 100%;
     max-width: 640px;
-    background: var(--container-bg);
-    border-radius: 24px;
+    background: var(--md-surface-container);
+    border-radius: 28px;
     padding: 40px;
-    box-shadow: var(--shadow-md);
-    border: 1px solid var(--border);
-    backdrop-filter: blur(24px);
+    box-shadow: var(--md-elevation-3);
+    border: none;
     max-height: 100vh;
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-width: thin;
-    scrollbar-color: var(--border) transparent;
+    scrollbar-color: var(--md-outline-variant) transparent;
     display: flex;
     flex-direction: column;
-    animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: slideUp 0.4s cubic-bezier(0.2, 0, 0, 1);
 }
 
 @keyframes slideUp {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(24px);
     }
     to {
         opacity: 1;
@@ -99,9 +142,9 @@ body {
     }
 }
 
-/* Scrollbar styling */
+/* Material Design Scrollbar */
 .container::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
 }
 
 .container::-webkit-scrollbar-track {
@@ -110,42 +153,36 @@ body {
 }
 
 .container::-webkit-scrollbar-thumb {
-    background-color: var(--border);
+    background-color: var(--md-outline-variant);
     border-radius: 20px;
-    border: 1px solid transparent;
+    border: 2px solid transparent;
     background-clip: padding-box;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s cubic-bezier(0.2, 0, 0, 1);
 }
 
 .container::-webkit-scrollbar-thumb:hover {
-    background-color: var(--text-secondary);
-}
-
-.container:not(:hover)::-webkit-scrollbar-thumb {
-    opacity: 0;
+    background-color: var(--md-outline);
 }
 
 /* ============================================
-   Typography
+   Typography - Material Design 3
    ============================================ */
 h2 {
-    color: var(--text);
+    color: var(--md-on-surface);
     font-size: 2rem;
-    font-weight: 600;
+    font-weight: 400;
     margin-bottom: 0.5rem;
     text-align: center;
-    letter-spacing: -0.03em;
-    background: linear-gradient(to right, var(--primary) 0%, var(--primary-hover) 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: fadeInDown 0.6s ease-out 0.1s both;
+    letter-spacing: 0;
+    background: none;
+    -webkit-text-fill-color: var(--md-on-surface);
+    animation: fadeInDown 0.4s cubic-bezier(0.2, 0, 0, 1) 0.1s both;
 }
 
 @keyframes fadeInDown {
     from {
         opacity: 0;
-        transform: translateY(-10px);
+        transform: translateY(-8px);
     }
     to {
         opacity: 1;
@@ -155,16 +192,17 @@ h2 {
 
 .subtitle {
     text-align: center;
-    color: var(--text-secondary);
-    margin-bottom: 1.5rem;
-    font-size: 1.125rem;
+    color: var(--md-on-surface-variant);
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+    font-weight: 400;
     max-width: 480px;
     margin-left: auto;
     margin-right: auto;
-    animation: fadeInDown 0.6s ease-out 0.2s both;
+    animation: fadeInDown 0.4s cubic-bezier(0.2, 0, 0, 1) 0.15s both;
 }
 
-/* Help buttons - כפתורי עזרה */
+/* Help buttons - Material Outlined Button */
 .help-buttons {
     display: flex;
     gap: 12px;
@@ -174,54 +212,79 @@ h2 {
 }
 
 .help-button {
-    background: rgba(91, 95, 239, 0.1);
-    border: 1px solid rgba(91, 95, 239, 0.2);
-    color: var(--primary);
+    background: transparent;
+    border: 1px solid var(--md-outline);
+    color: var(--md-primary);
     font-size: 0.875rem;
     font-weight: 500;
-    padding: 10px 16px;
-    border-radius: 8px;
+    padding: 10px 24px;
+    border-radius: 20px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
     font-family: inherit;
+    letter-spacing: 0.1px;
+    text-transform: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.help-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: var(--md-primary);
+    opacity: 0.12;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s cubic-bezier(0.2, 0, 0, 1), height 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.help-button:hover::before {
+    width: 200px;
+    height: 200px;
 }
 
 .help-button:hover {
-    background: rgba(91, 95, 239, 0.15);
-    border-color: rgba(91, 95, 239, 0.3);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(91, 95, 239, 0.2);
+    border-color: var(--md-primary);
+    background: rgba(103, 80, 164, 0.08);
 }
 
-/* Required indicator - כוכבית לשדה חובה */
+.help-button:active {
+    background: rgba(103, 80, 164, 0.12);
+}
+
+/* Required indicator */
 .required-indicator {
-    color: var(--primary);
-    font-weight: 600;
+    color: var(--md-primary);
+    font-weight: 500;
     margin-right: 4px;
 }
 
-/* Field hint - הסבר קטן מתחת לשדות */
+/* Field hint */
 .field-hint {
     display: block;
     font-size: 0.75rem;
-    color: var(--text-secondary);
-    margin-top: 6px;
+    color: var(--md-on-surface-variant);
+    margin-top: 4px;
     padding-right: 4px;
-    font-style: italic;
+    font-weight: 400;
+    line-height: 1.33;
 }
 
-
 /* ============================================
-   Form Elements
+   Form Elements - Material Design 3
    ============================================ */
 .form-group {
     margin-bottom: 1.5rem;
-    background: var(--container-bg);
+    background: transparent;
     padding: 0;
-    border-radius: 12px;
-    transition: all 0.2s ease;
+    border-radius: 0;
+    transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
     position: relative;
-    animation: fadeInUp 0.5s ease-out both;
+    animation: fadeInUp 0.4s cubic-bezier(0.2, 0, 0, 1) both;
 }
 
 .form-group:nth-child(1) { animation-delay: 0.1s; }
@@ -233,7 +296,7 @@ h2 {
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(8px);
     }
     to {
         opacity: 1;
@@ -241,54 +304,52 @@ h2 {
     }
 }
 
-.form-group:hover {
-    border-color: var(--primary);
-}
-
 label {
     display: block;
     margin-bottom: 8px;
     font-weight: 500;
-    color: var(--text);
+    color: var(--md-on-surface);
     font-size: 0.875rem;
-    padding-right: 2px;
+    padding-right: 0;
+    letter-spacing: 0.1px;
 }
 
 input, textarea {
     width: 100%;
-    padding: 12px 16px;
+    padding: 16px;
     font-size: 1rem;
-    background: var(--input-bg);
-    border: 1px solid var(--border);
+    background: var(--md-input-bg, var(--md-surface-container-high));
+    border: 1px solid var(--md-outline-variant);
     border-radius: 12px;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    color: var(--text);
+    transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+    color: var(--md-on-surface);
     font-family: inherit;
-    box-shadow: var(--shadow-sm);
+    box-shadow: none;
+    font-weight: 400;
 }
 
 input:hover, textarea:hover {
-    border-color: var(--primary);
-    background: var(--input-bg);
+    border-color: var(--md-on-surface);
+    background: var(--md-input-bg, var(--md-surface-container-high));
 }
 
 input:focus, textarea:focus {
     outline: none;
-    border-color: var(--primary);
-    background: var(--input-bg);
-    box-shadow: 0 0 0 3px rgba(91, 95, 239, 0.15);
+    border-color: var(--md-primary);
+    background: var(--md-input-bg, var(--md-surface-container-high));
+    box-shadow: 0 0 0 3px rgba(103, 80, 164, 0.12);
 }
 
 textarea {
     height: 100px;
-    resize: none;
+    resize: vertical;
+    min-height: 100px;
 }
 
-/* Placeholder styling */
 input::placeholder,
 textarea::placeholder {
-    direction: inherit;
-    text-align: inherit;
+    color: var(--md-on-surface-variant);
+    opacity: 1;
 }
 
 :root[dir="ltr"] input::placeholder,
@@ -302,7 +363,7 @@ textarea::placeholder {
 }
 
 /* ============================================
-   Buttons
+   Buttons - Material Design 3
    ============================================ */
 .buttons-container {
     margin-top: 2rem;
@@ -317,51 +378,101 @@ textarea::placeholder {
 }
 
 button {
-    padding: 14px 24px;
-    font-size: 0.9375rem;
+    padding: 10px 24px;
+    font-size: 0.875rem;
     font-weight: 500;
-    border-radius: 12px;
+    border-radius: 20px;
     cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
     font-family: inherit;
     position: relative;
     overflow: hidden;
+    letter-spacing: 0.1px;
+    text-transform: none;
+    min-height: 40px;
+    border: none;
 }
 
+/* Outlined Button (Mailto) */
 button:first-child {
-    color: var(--primary);
-    background: var(--button-bg);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-sm);
+    color: var(--md-primary);
+    background: transparent;
+    border: 1px solid var(--md-outline);
+    box-shadow: none;
+}
+
+button:first-child::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: var(--md-primary);
+    opacity: 0.12;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s cubic-bezier(0.2, 0, 0, 1), height 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+
+button:first-child:hover::before {
+    width: 200px;
+    height: 200px;
 }
 
 button:first-child:hover {
-    border-color: var(--primary);
-    background: var(--button-bg);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    border-color: var(--md-primary);
+    background: rgba(103, 80, 164, 0.08);
+    box-shadow: none;
 }
 
+button:first-child:active {
+    background: rgba(103, 80, 164, 0.12);
+}
+
+/* Filled Button (Gmail) */
 button:last-child {
-    color: white;
-    background: var(--primary);
+    color: var(--md-on-primary);
+    background: var(--md-primary);
     border: none;
-    font-weight: 600;
-    box-shadow: 0 4px 12px rgba(91, 95, 239, 0.3);
+    font-weight: 500;
+    box-shadow: var(--md-elevation-1);
+}
+
+button:last-child::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: var(--md-on-primary);
+    opacity: 0.2;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s cubic-bezier(0.2, 0, 0, 1), height 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+
+button:last-child:hover::before {
+    width: 200px;
+    height: 200px;
 }
 
 button:last-child:hover {
     background: var(--primary-hover);
-    box-shadow: 0 8px 16px rgba(91, 95, 239, 0.4);
-    transform: translateY(-2px);
+    box-shadow: var(--md-elevation-2);
+}
+
+button:last-child:active {
+    box-shadow: var(--md-elevation-1);
 }
 
 button:active {
-    transform: translateY(0) scale(0.98);
+    transform: scale(0.98);
 }
 
 button:disabled {
-    opacity: 0.5;
+    opacity: 0.38;
     cursor: not-allowed;
     pointer-events: all !important;
 }
@@ -370,28 +481,33 @@ button:disabled:hover {
     transform: none;
 }
 
+button:disabled::before {
+    display: none;
+}
+
 button:disabled:hover::after {
     content: attr(data-tooltip);
     position: absolute;
     bottom: calc(100% + 8px);
     left: 50%;
     transform: translateX(-50%);
-    background: var(--primary);
-    color: white;
-    padding: 6px 12px;
-    border-radius: 6px;
+    background: var(--md-surface-container-highest);
+    color: var(--md-on-surface);
+    padding: 8px 12px;
+    border-radius: 4px;
     font-size: 0.75rem;
     white-space: nowrap;
     pointer-events: none;
     opacity: 1;
     z-index: 1;
-    animation: tooltipFadeIn 0.2s ease-out;
+    animation: tooltipFadeIn 0.2s cubic-bezier(0.2, 0, 0, 1);
+    box-shadow: var(--md-elevation-2);
 }
 
 @keyframes tooltipFadeIn {
     from {
         opacity: 0;
-        transform: translateX(-50%) translateY(-5px);
+        transform: translateX(-50%) translateY(-4px);
     }
     to {
         opacity: 1;
@@ -407,36 +523,61 @@ button:disabled:hover::before {
     transform: translateX(-50%);
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
-    border-top: 4px solid var(--primary);
+    border-top: 4px solid var(--md-surface-container-highest);
 }
 
-/* Add fields button */
+/* Add fields button - Material Text Button */
 .add-fields-button {
-    background: none;
+    background: transparent;
     border: none;
-    color: var(--primary);
+    color: var(--md-primary);
     font-size: 0.875rem;
-    padding: 8px 16px;
-    margin: -8px 0 16px;
-    border-radius: 8px;
+    padding: 8px 12px;
+    margin: 0 auto 16px;
+    border-radius: 20px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 6px;
-    transition: all 0.2s ease;
-    margin: 1rem auto;
+    gap: 8px;
+    transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
     width: fit-content;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.add-fields-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: var(--md-primary);
+    opacity: 0.12;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s cubic-bezier(0.2, 0, 0, 1), height 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.add-fields-button:hover::before {
+    width: 200px;
+    height: 200px;
 }
 
 .add-fields-button:hover {
-    background: rgba(91, 95, 239, 0.08);
-    transform: translateY(-1px);
+    background: rgba(103, 80, 164, 0.08);
+}
+
+.add-fields-button:active {
+    background: rgba(103, 80, 164, 0.12);
 }
 
 .add-fields-button svg {
-    width: 16px;
-    height: 16px;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
 }
 
 .add-fields-button.active svg {
@@ -449,7 +590,7 @@ button:disabled:hover::before {
 .additional-fields {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: max-height 0.3s cubic-bezier(0.2, 0, 0, 1);
 }
 
 .additional-fields.visible {
@@ -457,45 +598,46 @@ button:disabled:hover::before {
 }
 
 /* ============================================
-   Copy Status
+   Copy Status - Material Snackbar
    ============================================ */
 #copyStatus {
     position: fixed;
-    bottom: 24px;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
-    background: var(--container-bg);
-    color: var(--text);
-    padding: 12px 24px;
-    border-radius: 99px;
+    transform: translate(-50%, -50%) scale(0.9);
+    background: var(--md-surface-container-highest);
+    color: var(--md-on-surface);
+    padding: 16px 24px;
+    border-radius: 16px;
     font-size: 0.875rem;
     font-weight: 500;
     opacity: 0;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: var(--shadow-md);
-    backdrop-filter: blur(24px);
-    border: 1px solid var(--border);
+    transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+    box-shadow: var(--md-elevation-5);
     pointer-events: none;
+    letter-spacing: 0.1px;
+    z-index: 2000;
+    min-width: 200px;
+    text-align: center;
 }
 
 #copyStatus.show {
     opacity: 1;
-    transform: translate(-50%, -12px);
-    animation: bounceIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform: translate(-50%, -50%) scale(1);
+    animation: snackbarSlideIn 0.3s cubic-bezier(0.2, 0, 0, 1);
 }
 
-@keyframes bounceIn {
+@keyframes snackbarSlideIn {
     0% {
         opacity: 0;
-        transform: translate(-50%, -12px) scale(0.3);
+        transform: translate(-50%, -50%) scale(0.9);
     }
     50% {
-        opacity: 1;
-        transform: translate(-50%, -12px) scale(1.05);
+        transform: translate(-50%, -50%) scale(1.05);
     }
     100% {
         opacity: 1;
-        transform: translate(-50%, -12px) scale(1);
+        transform: translate(-50%, -50%) scale(1);
     }
 }
 
@@ -511,9 +653,9 @@ button:disabled:hover::before {
 
 .buttons-section {
     margin-top: 1.5rem;
-    padding-top: 1rem;
+    padding-top: 1.5rem;
     position: relative;
-    background: var(--container-bg);
+    background: var(--md-surface-container);
 }
 
 .buttons-section::before {
@@ -523,8 +665,8 @@ button:disabled:hover::before {
     left: -40px;
     right: -40px;
     height: 1px;
-    background: var(--border);
-    animation: expandLine 0.6s ease-out 0.4s both;
+    background: var(--md-outline-variant);
+    animation: expandLine 0.4s cubic-bezier(0.2, 0, 0, 1) 0.3s both;
 }
 
 @keyframes expandLine {
@@ -537,7 +679,7 @@ button:disabled:hover::before {
 }
 
 /* ============================================
-   Modal / Popup
+   Modal / Dialog - Material Design 3
    ============================================ */
 .modal-overlay {
     position: fixed;
@@ -545,13 +687,13 @@ button:disabled:hover::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     z-index: 1000;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
 }
 
 .modal-overlay.active {
@@ -563,11 +705,11 @@ button:disabled:hover::before {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0.9);
-    background: var(--container-bg);
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    border: 1px solid var(--border);
+    transform: translate(-50%, -50%) scale(0.95);
+    background: var(--md-surface-container);
+    border-radius: 28px;
+    box-shadow: var(--md-elevation-5);
+    border: none;
     max-width: 560px;
     width: 90%;
     max-height: 85vh;
@@ -575,21 +717,20 @@ button:disabled:hover::before {
     z-index: 1001;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    backdrop-filter: blur(24px);
+    transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
 }
 
 .modal.active {
     opacity: 1;
     visibility: visible;
     transform: translate(-50%, -50%) scale(1);
-    animation: modalSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: modalSlideIn 0.2s cubic-bezier(0.2, 0, 0, 1);
 }
 
 @keyframes modalSlideIn {
     from {
         opacity: 0;
-        transform: translate(-50%, -50%) scale(0.9) translateY(-20px);
+        transform: translate(-50%, -50%) scale(0.95) translateY(-8px);
     }
     to {
         opacity: 1;
@@ -602,53 +743,81 @@ button:disabled:hover::before {
     justify-content: space-between;
     align-items: center;
     padding: 24px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--md-outline-variant);
     position: sticky;
     top: 0;
-    background: var(--container-bg);
-    border-radius: 20px 20px 0 0;
+    background: var(--md-surface-container);
+    border-radius: 28px 28px 0 0;
     z-index: 1;
 }
 
 .modal-header h3 {
     margin: 0;
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--text);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--md-on-surface);
+    letter-spacing: 0;
 }
 
 .modal-close {
     background: transparent;
     border: none;
-    color: var(--text-secondary);
-    font-size: 2rem;
+    color: var(--md-on-surface-variant);
+    font-size: 1.5rem;
     line-height: 1;
     cursor: pointer;
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
-    transition: all 0.2s ease;
+    border-radius: 20px;
+    transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
     padding: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.modal-close::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: var(--md-on-surface);
+    opacity: 0.12;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s cubic-bezier(0.2, 0, 0, 1), height 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.modal-close:hover::before {
+    width: 200px;
+    height: 200px;
 }
 
 .modal-close:hover {
-    background: rgba(0, 0, 0, 0.1);
-    color: var(--text);
-    transform: rotate(90deg);
+    color: var(--md-on-surface);
+    background: transparent;
+}
+
+.modal-close:active {
+    background: rgba(0, 0, 0, 0.12);
 }
 
 .modal-content {
     padding: 24px;
-    color: var(--text);
-    line-height: 1.6;
+    color: var(--md-on-surface);
+    line-height: 1.5;
 }
 
 .modal-content p {
     margin-bottom: 1rem;
-    color: var(--text-secondary);
+    color: var(--md-on-surface-variant);
+    font-size: 0.875rem;
+    font-weight: 400;
+    letter-spacing: 0.25px;
 }
 
 .modal-content ul {
@@ -659,7 +828,9 @@ button:disabled:hover::before {
 
 .modal-content li {
     margin-bottom: 0.5rem;
-    color: var(--text-secondary);
+    color: var(--md-on-surface-variant);
+    font-size: 0.875rem;
+    letter-spacing: 0.25px;
 }
 
 .modal-content li:last-child {
@@ -670,13 +841,13 @@ button:disabled:hover::before {
 .modal-content .intro-text {
     margin-bottom: 1.5rem;
     padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--md-outline-variant);
 }
 
 .modal-content .intro-text p {
     margin-bottom: 1rem;
-    font-size: 0.9375rem;
-    line-height: 1.7;
+    font-size: 0.875rem;
+    line-height: 1.5;
 }
 
 .modal-content .intro-text p:last-child {
@@ -690,10 +861,11 @@ button:disabled:hover::before {
 
 .modal-content .how-to-use strong {
     display: block;
-    color: var(--primary);
-    font-size: 1rem;
+    color: var(--md-primary);
+    font-size: 0.875rem;
     margin-bottom: 0.75rem;
-    font-weight: 600;
+    font-weight: 500;
+    letter-spacing: 0.1px;
 }
 
 /* Explanation items inside modal */
@@ -707,7 +879,7 @@ button:disabled:hover::before {
 
 /* Modal scrollbar */
 .modal::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
 }
 
 .modal::-webkit-scrollbar-track {
@@ -715,12 +887,14 @@ button:disabled:hover::before {
 }
 
 .modal::-webkit-scrollbar-thumb {
-    background-color: var(--border);
+    background-color: var(--md-outline-variant);
     border-radius: 20px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
 }
 
 .modal::-webkit-scrollbar-thumb:hover {
-    background-color: var(--text-secondary);
+    background-color: var(--md-outline);
 }
 
 .explanation-item {
@@ -732,32 +906,35 @@ button:disabled:hover::before {
 }
 
 .explanation-item strong {
-    color: var(--primary);
+    color: var(--md-primary);
     display: block;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.1px;
 }
 
-/* Recommendation item - בולט יותר */
+/* Recommendation item */
 .explanation-item.recommendation {
-    background: rgba(91, 95, 239, 0.1);
-    border: 1px solid rgba(91, 95, 239, 0.3);
-    border-radius: 8px;
-    padding: 12px;
+    background: var(--md-primary-container);
+    border: none;
+    border-radius: 12px;
+    padding: 16px;
     margin-bottom: 1.25rem;
 }
 
 .explanation-item.recommendation strong {
-    color: var(--primary);
-    font-size: 0.9375rem;
+    color: var(--md-on-primary-container);
+    font-size: 0.875rem;
     margin-bottom: 8px;
 }
 
 .explanation-item.recommendation p {
     margin: 0;
-    font-size: 0.8125rem;
-    line-height: 1.6;
-    color: var(--text);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--md-on-primary-container);
+    letter-spacing: 0.25px;
 }
 
 .explanation-item ul {
@@ -768,7 +945,8 @@ button:disabled:hover::before {
 
 .explanation-item li {
     margin-bottom: 4px;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
+    letter-spacing: 0.25px;
 }
 
 .explanation-item li:last-child {
@@ -776,7 +954,7 @@ button:disabled:hover::before {
 }
 
 /* ============================================
-   Footer
+   Footer - Material Design 3
    ============================================ */
 .footer {
     position: fixed;
@@ -788,26 +966,28 @@ button:disabled:hover::before {
     align-items: center;
     text-align: center;
     font-size: 0.875rem;
-    color: var(--text-secondary);
+    color: var(--md-on-surface-variant);
     z-index: 10;
     pointer-events: none;
-    animation: fadeInUp 0.6s ease-out 0.5s both;
+    animation: fadeInUp 0.4s cubic-bezier(0.2, 0, 0, 1) 0.4s both;
+    font-weight: 400;
+    letter-spacing: 0.25px;
 }
 
 .footer p {
-    background: var(--container-bg);
+    background: var(--md-surface-container);
     padding: 8px 16px;
-    border-radius: 99px;
-    box-shadow: var(--shadow-sm);
-    border: 1px solid var(--border);
-    backdrop-filter: blur(8px);
+    border-radius: 16px;
+    box-shadow: var(--md-elevation-1);
+    border: none;
     pointer-events: all;
 }
 
 .footer a {
-    color: var(--primary);
+    color: var(--md-primary);
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: color 0.2s cubic-bezier(0.2, 0, 0, 1);
+    font-weight: 500;
 }
 
 .footer a:hover {
@@ -817,7 +997,7 @@ button:disabled:hover::before {
 
 .footer .separator {
     margin: 0 8px;
-    opacity: 0.5;
+    opacity: 0.6;
 }
 
 /* ============================================
@@ -827,16 +1007,19 @@ button:disabled:hover::before {
     position: absolute;
     bottom: calc(100% + 8px);
     right: 0;
-    background: var(--primary);
-    color: white;
-    padding: 6px 12px;
-    border-radius: 6px;
+    background: var(--md-surface-container-highest);
+    color: var(--md-on-surface);
+    padding: 8px 12px;
+    border-radius: 4px;
     font-size: 0.75rem;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
     white-space: nowrap;
     pointer-events: none;
+    box-shadow: var(--md-elevation-2);
+    font-weight: 400;
+    letter-spacing: 0.25px;
 }
 
 .validation-tooltip::after {
@@ -846,7 +1029,7 @@ button:disabled:hover::before {
     right: 10px;
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
-    border-top: 4px solid var(--primary);
+    border-top: 4px solid var(--md-surface-container-highest);
 }
 
 .validation-tooltip.show {
@@ -867,7 +1050,7 @@ button:disabled:hover::before {
     
     .container {
         padding: 24px 16px;
-        border-radius: 20px;
+        border-radius: 24px;
         transform: none;
         max-height: calc(100dvh - 32px);
     }
@@ -878,8 +1061,8 @@ button:disabled:hover::before {
     }
     
     .subtitle {
-        font-size: 1rem;
-        margin-bottom: 1rem;
+        font-size: 0.8125rem;
+        margin-bottom: 1.5rem;
     }
     
     .help-buttons {
@@ -889,13 +1072,13 @@ button:disabled:hover::before {
     
     .help-button {
         font-size: 0.8125rem;
-        padding: 8px 12px;
+        padding: 8px 16px;
     }
     
     .modal {
         width: 95%;
         max-height: 90vh;
-        border-radius: 16px;
+        border-radius: 24px;
     }
     
     .modal-header {
@@ -903,7 +1086,7 @@ button:disabled:hover::before {
     }
     
     .modal-header h3 {
-        font-size: 1.125rem;
+        font-size: 1.25rem;
     }
     
     .modal-content {
@@ -916,11 +1099,11 @@ button:disabled:hover::before {
     }
     
     .modal-content .intro-text p {
-        font-size: 0.875rem;
+        font-size: 0.8125rem;
     }
     
     .modal-content .how-to-use strong {
-        font-size: 0.9375rem;
+        font-size: 0.8125rem;
     }
 
     .form-group {
@@ -933,12 +1116,13 @@ button:disabled:hover::before {
     }
     
     input, textarea {
-        padding: 12px;
+        padding: 14px;
         font-size: 16px; /* Prevents zoom on iOS */
     }
     
     textarea {
         height: 80px;
+        min-height: 80px;
     }
 
     .buttons {
@@ -947,14 +1131,14 @@ button:disabled:hover::before {
     }
     
     button {
-        padding: 12px;
+        padding: 10px 16px;
         font-size: 0.875rem;
-        min-height: 44px;
+        min-height: 40px;
     }
     
     .buttons-section {
         margin-top: 1rem;
-        padding-top: 0.75rem;
+        padding-top: 1rem;
     }
 
     .buttons-section::before {
@@ -967,30 +1151,31 @@ button:disabled:hover::before {
     }
     
     .explanation-item.recommendation {
-        padding: 10px;
+        padding: 12px;
         margin-bottom: 1rem;
     }
     
     .explanation-item.recommendation strong {
-        font-size: 0.875rem;
+        font-size: 0.8125rem;
     }
     
     .explanation-item.recommendation p {
-        font-size: 0.75rem;
+        font-size: 0.8125rem;
     }
     
     .explanation-item li {
-        font-size: 0.75rem;
+        font-size: 0.8125rem;
     }
 
     .container::-webkit-scrollbar {
-        width: 3px;
+        width: 4px;
     }
 
     #copyStatus {
-        bottom: 16px;
-        padding: 10px 20px;
-        font-size: 0.8125rem;
+        top: 50%;
+        padding: 14px 20px;
+        font-size: 0.875rem;
+        min-width: 180px;
     }
 
     .add-fields-button {
