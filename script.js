@@ -75,6 +75,7 @@ const translations = {
 // State Management
 // ============================================
 let currentLanguage = detectLanguage();
+let copyStatusTimeoutId = null;
 
 // ============================================
 // Utility Functions
@@ -262,11 +263,21 @@ function showCopyStatus(type) {
     }
     
     const statusElement = document.getElementById('copyStatus');
+    if (!statusElement) return;
+
+    if (copyStatusTimeoutId) {
+        clearTimeout(copyStatusTimeoutId);
+        copyStatusTimeoutId = null;
+    }
+
+    statusElement.classList.remove('show');
+    void statusElement.offsetWidth;
     statusElement.textContent = message;
     statusElement.classList.add('show');
     
-    setTimeout(() => {
+    copyStatusTimeoutId = setTimeout(() => {
         statusElement.classList.remove('show');
+        copyStatusTimeoutId = null;
     }, 2000);
 }
 

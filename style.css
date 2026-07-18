@@ -374,9 +374,9 @@ textarea {
 
 #copyStatus {
     position: fixed;
-    top: 50%;
+    bottom: 28px;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0.92);
+    transform: translate(-50%, 10px) scale(0.94);
     min-width: 210px;
     text-align: center;
     padding: 14px 18px;
@@ -394,7 +394,7 @@ textarea {
 
 #copyStatus.show {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, 0) scale(1);
 }
 
 .modal-overlay {
@@ -595,6 +595,10 @@ textarea {
 
     .help-button {
         width: 100%;
+    }
+
+    #copyStatus {
+        bottom: 20px;
     }
 
     .footer {
