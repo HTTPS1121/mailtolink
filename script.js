@@ -86,6 +86,11 @@ let copyStatusTimeoutId = null;
  * @returns {string} Language code ('he' or 'en')
  */
 function detectLanguage() {
+    const documentLang = (document.documentElement.lang || '').toLowerCase();
+    if (documentLang.startsWith('he')) {
+        return 'he';
+    }
+
     return navigator.language.toLowerCase().split('-')[0] === 'he' ? 'he' : 'en';
 }
 
