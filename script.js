@@ -75,6 +75,7 @@ const translations = {
 // State Management
 // ============================================
 let currentLanguage = detectLanguage();
+let copyStatusTimeoutId = null;
 
 // ============================================
 // Utility Functions
@@ -85,6 +86,11 @@ let currentLanguage = detectLanguage();
  * @returns {string} Language code ('he' or 'en')
  */
 function detectLanguage() {
+    const documentLang = (document.documentElement.lang || '').toLowerCase();
+    if (documentLang.startsWith('he')) {
+        return 'he';
+    }
+
     return navigator.language.toLowerCase().split('-')[0] === 'he' ? 'he' : 'en';
 }
 
@@ -262,11 +268,21 @@ function showCopyStatus(type) {
     }
     
     const statusElement = document.getElementById('copyStatus');
+    if (!statusElement) return;
+
+    if (copyStatusTimeoutId) {
+        clearTimeout(copyStatusTimeoutId);
+        copyStatusTimeoutId = null;
+    }
+
+    statusElement.classList.remove('show');
+    void statusElement.offsetWidth;
     statusElement.textContent = message;
     statusElement.classList.add('show');
     
-    setTimeout(() => {
+    copyStatusTimeoutId = setTimeout(() => {
         statusElement.classList.remove('show');
+        copyStatusTimeoutId = null;
     }, 2000);
 }
 
